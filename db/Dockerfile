@@ -3,7 +3,8 @@ FROM postgres:latest
 # Install unzip
 RUN apt-get update && apt-get install -y unzip
 
-# Copy scripts
-COPY init/extract_and_seed.sh /docker-entrypoint-initdb.d/extract_and_seed.sh
-COPY migrations/seed.sql /tmp/seed.sql
+# Copy scripts and flat files
 COPY data/data.zip /tmp/data.zip
+COPY init/extract_and_seed.sh /docker-entrypoint-initdb.d/extract_and_seed.sh
+COPY migrations/tables.sql /tmp/tables.sql
+COPY seed/seed.sql /tmp/seed.sql
