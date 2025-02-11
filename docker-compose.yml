@@ -1,0 +1,15 @@
+services:
+  db:
+    build: ./db
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: lafc_dev
+      POSTGRES_USER: lafc_user
+      POSTGRES_PASSWORD: thisis3252ahoo
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
