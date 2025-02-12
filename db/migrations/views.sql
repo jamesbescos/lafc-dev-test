@@ -29,20 +29,31 @@ CREATE OR REPLACE VIEW vw_question_2 (
     (the first purchase can be either from tickets or merchandise).
 */
 CREATE OR REPLACE VIEW vw_question_3 (
+    WITH earliest_ticket_purchases AS (
+        SELECT
+            acct_id,
+            MIN(e.event_date) AS first_purchase
+        FROM tickets t
+        JOIN events e ON t.event_id = e.event_id
+        WHERE t.ticket_status IN ('A', 'Active')
+        GROUP BY acct_id
+    ),
+    earliest_merch_purchases AS (
+        SELECT
+            acct_id,
+            MIN(order_date) AS first_purchase
+        FROM merchandise
+        GROUP BY acct_id
+    )
     SELECT 
         acct_id,
         MIN(first_purchase) AS earliest_purchase_date
     FROM (
-        SELECT acct_id, MIN(order_date) AS first_purchase
-        FROM merchandise
-        GROUP BY acct_id
+        SELECT * FROM earliest_ticket_purchases
         UNION ALL
-        SELECT acct_id, MIN(e.event_date) AS first_purchase
-        FROM tickets t
-        JOIN events e ON t.event_id = e.event_id
-        GROUP BY acct_id
+        SELECT * FROM earliest_merch_purchases
     ) purchases
-    GROUP BY acct_id;
+    GROUP BY acct_id
 );
 
 
