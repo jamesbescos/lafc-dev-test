@@ -22,7 +22,8 @@ Take home test for LAFC analyst position. Instructions in '2025 LAFC Analyst, Bu
     - vw_question_2
     - vw_question_3
     - vw_question_4
-    You can see the underlying queries of a view in 'db/migrations/views', or by running the query:
+    
+    You can see the underlying queries of a view in 'db/migrations/views.sql', or by running the query:
     ```sql
         SELECT definition 
         FROM pg_views 
