@@ -7,7 +7,19 @@
     There should be one row per account and member tickets are flagged with the plan event prefix 22FS.
 */
 CREATE OR REPLACE VIEW vw_question_1 (
-    -- TODO:
+    WITH member_sections_2022 AS (
+        SELECT DISTINCT
+            t.acct_id,
+            t.section_name
+        FROM tickets t
+        WHERE t.plan_event_name LIKE '22FS%'
+            AND t.ticket_status IN ('A', 'Active')
+    )
+    SELECT
+        acct_id,
+        ARRAY_AGG(section_name) as sections
+    FROM member_sections_2022
+    GROUP BY acct_id;
 );
 
 
