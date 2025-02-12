@@ -6,7 +6,7 @@
     Please write a query that shows all 2022 member (season ticket holder) account IDs and the unique sections that the member has seats in. 
     There should be one row per account and member tickets are flagged with the plan event prefix 22FS.
 */
-CREATE OR REPLACE VIEW vw_question_1 (
+CREATE OR REPLACE VIEW vw_question_1 AS
     WITH member_sections_2022 AS (
         SELECT DISTINCT
             t.acct_id,
@@ -20,7 +20,6 @@ CREATE OR REPLACE VIEW vw_question_1 (
         ARRAY_AGG(section_name) as sections
     FROM member_sections_2022
     GROUP BY acct_id;
-);
 
 
 /*
@@ -29,7 +28,7 @@ CREATE OR REPLACE VIEW vw_question_1 (
     Please write a query that aggregates total 2021 ticket spend, 2022 ticket spend and merchandise spend by account ID. 
     There should be one row for each unique account ID.
 */
-CREATE OR REPLACE VIEW vw_question_2 (
+CREATE OR REPLACE VIEW vw_question_2 AS
     WITH acct_ticket_spend AS (
         SELECT
             t.acct_id,
@@ -63,7 +62,6 @@ CREATE OR REPLACE VIEW vw_question_2 (
         COALESCE(ms.merch_spend, 0) AS merchandise_spend
     FROM acct_ticket_spend ts
     FULL OUTER JOIN acct_merch_spend ms ON ms.acct_id = ts.acct_id;
-);
 
 
 /*
@@ -72,7 +70,7 @@ CREATE OR REPLACE VIEW vw_question_2 (
     Please write a query that shows the earliest purchase date for every account ID 
     (the first purchase can be either from tickets or merchandise).
 */
-CREATE OR REPLACE VIEW vw_question_3 (
+CREATE OR REPLACE VIEW vw_question_3 AS
     WITH earliest_ticket_purchases AS (
         SELECT
             acct_id,
@@ -97,8 +95,7 @@ CREATE OR REPLACE VIEW vw_question_3 (
         UNION ALL
         SELECT * FROM earliest_merch_purchases
     ) purchases
-    GROUP BY acct_id
-);
+    GROUP BY acct_id;
 
 
 /*
@@ -107,7 +104,7 @@ CREATE OR REPLACE VIEW vw_question_3 (
     Please write a query that shows the ticket sell through rate by section for the last match of the 2022 regular season 
     (sell through rate = total sales/total manifest seats).
 */
-CREATE OR REPLACE VIEW vw_question_4 (
+CREATE OR REPLACE VIEW vw_question_4 AS
     WITH last_match AS (
         SELECT event_id
         FROM events
@@ -131,5 +128,4 @@ CREATE OR REPLACE VIEW vw_question_4 (
         ON t.section_id = s.section_id
         AND t.event_id = (SELECT event_id FROM last_match)
         AND t.ticket_status IN ('A', 'Active')
-    GROUP BY s.section_id, s.capacity
-);
+    GROUP BY s.section_id, s.capacity;
