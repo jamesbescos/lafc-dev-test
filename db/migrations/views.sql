@@ -18,7 +18,39 @@ CREATE OR REPLACE VIEW vw_question_1 (
     There should be one row for each unique account ID.
 */
 CREATE OR REPLACE VIEW vw_question_2 (
-    --TODO:
+    WITH acct_ticket_spend AS (
+        SELECT
+            t.acct_id,
+            SUM(CASE
+                WHEN EXTRACT(YEAR FROM e.event_date) = 2021
+                THEN t.purchase_price
+                ELSE 0
+            END) AS ticket_spend_2021,
+            SUM(CASE
+                WHEN EXTRACT(YEAR FROM e.event_date) = 2022
+                THEN t.purchase_price
+                ELSE 0
+            END) AS ticket_spend_2022
+        FROM tickets t
+        LEFT JOIN events e ON t.event_id = e.event_id
+        WHERE t.ticket_status IN ('A', 'Active')
+            AND t.purchase_price IS NOT NULL
+        GROUP BY t.acct_id
+    ),
+    acct_merch_spend AS (
+        SELECT
+            m.acct_id,
+            COALESCE(SUM(m.line_total), 0) AS merch_spend
+        FROM merchandise m
+        GROUP BY m.acct_id
+    )
+    SELECT
+        COALESCE(ts.acct_id, ms.acct_id) AS acct_id,
+        COALESCE(ts.ticket_spend_2021, 0) AS ticket_spend_2021,
+        COALESCE(ts.ticket_spend_2022, 0) AS ticket_spend_2022,
+        COALESCE(ms.merch_spend, 0) AS merchandise_spend
+    FROM acct_ticket_spend ts
+    FULL OUTER JOIN acct_merch_spend ms ON ms.acct_id = ts.acct_id;
 );
 
 
