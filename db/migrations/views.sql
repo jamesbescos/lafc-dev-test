@@ -7,6 +7,7 @@
     There should be one row per account and member tickets are flagged with the plan event prefix 22FS.
 */
 CREATE OR REPLACE VIEW vw_question_1 (
+    -- TODO:
 );
 
 
@@ -17,6 +18,7 @@ CREATE OR REPLACE VIEW vw_question_1 (
     There should be one row for each unique account ID.
 */
 CREATE OR REPLACE VIEW vw_question_2 (
+    --TODO:
 );
 
 
@@ -27,6 +29,20 @@ CREATE OR REPLACE VIEW vw_question_2 (
     (the first purchase can be either from tickets or merchandise).
 */
 CREATE OR REPLACE VIEW vw_question_3 (
+    SELECT 
+        acct_id,
+        MIN(first_purchase) AS earliest_purchase_date
+    FROM (
+        SELECT acct_id, MIN(order_date) AS first_purchase
+        FROM merchandise
+        GROUP BY acct_id
+        UNION ALL
+        SELECT acct_id, MIN(e.event_date) AS first_purchase
+        FROM tickets t
+        JOIN events e ON t.event_id = e.event_id
+        GROUP BY acct_id
+    ) purchases
+    GROUP BY acct_id;
 );
 
 
