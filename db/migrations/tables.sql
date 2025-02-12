@@ -1,6 +1,7 @@
 -- Create Tables
 
 -- Events Table
+-- Detailed information on upcoming and past events
 CREATE TABLE events (
     event_id SERIAL PRIMARY KEY,
     event_name VARCHAR(255) NOT NULL,
@@ -28,6 +29,8 @@ CREATE TABLE events (
 );
 
 -- Tickets Table
+-- Contains all ticket purchases. Successful transactions have a status of A or Active
+-- acct_id corresponds to acct_id in merch files
 CREATE TABLE tickets (
     ticket_id SERIAL PRIMARY KEY,
     event_name VARCHAR(255),
@@ -51,6 +54,8 @@ CREATE TABLE tickets (
 );
 
 -- Manifests Table
+-- Shows the total number of seats available for MLS Regular Season matches at Banc of CA Stadium
+-- Section, row and seat combination correspond to the same fields in the ticket table
 CREATE TABLE manifests (
     manifest_id SERIAL,
     section_id INT,
@@ -73,7 +78,8 @@ CREATE TABLE manifests (
     arena_name VARCHAR(255)
 );
 
--- Merch Table
+-- Merchandise Table
+-- Contains merchandise transactions that have occurred in 2022 and 2021
 CREATE TABLE merchandise (
     merchandise_id SERIAL PRIMARY KEY,
     acct_id INT,
