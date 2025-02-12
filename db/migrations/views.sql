@@ -54,25 +54,27 @@ CREATE OR REPLACE VIEW vw_question_3 (
 */
 CREATE OR REPLACE VIEW vw_question_4 (
     WITH last_match AS (
-       SELECT event_id 
-       FROM events 
-       WHERE season_name = '2022 LAFC Season' 
-        AND minor_category = 'MLS SOCCER'
-       ORDER BY event_date DESC 
-       LIMIT 1
+        SELECT event_id
+        FROM events
+        WHERE season_name = '2022 LAFC Season'
+            AND minor_category = 'MLS SOCCER'
+        ORDER BY event_date DESC 
+        LIMIT 1
     ),
     sections AS (
-       SELECT
-           section_id,
-           SUM(COALESCE(num_seats, 0)) AS capacity
-       FROM manifests m
-       GROUP BY m.section_id
+        SELECT
+            section_id,
+            SUM(COALESCE(num_seats, 0)) AS capacity
+        FROM manifests m
+        GROUP BY m.section_id
     )
     SELECT 
-        t.section_id,
-        COUNT(t.ticket_id) * 1.0 / NULLIF(s.capacity, 0) AS sell_through_rate
-    FROM tickets t
-    JOIN last_match lm ON t.event_id = lm.event_id
-    JOIN sections s ON t.section_id = s.section_id
-    GROUP BY t.section_id, s.capacity;
+        s.section_id,
+        COUNT(t.ticket_id)::FLOAT / NULLIF(s.capacity, 0) AS sell_through_rate
+    FROM sections s
+    LEFT JOIN tickets t
+        ON t.section_id = s.section_id
+        AND t.event_id = (SELECT event_id FROM last_match)
+        AND t.ticket_status IN ('A', 'Active')
+    GROUP BY s.section_id, s.capacity
 );
