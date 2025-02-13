@@ -51,7 +51,18 @@ COPY merchandise (
     product_desc1, product_size, product_color, vendor_name, product_department,
     product_class, status, team_prd, num_items, line_quantity, line_total,
     price, promo_used_flag, promo_code
+)
+FROM '/tmp/data/lafc_sql_test_2022merch(in).csv'
+DELIMITER ','
+CSV HEADER;
+
+-- Food and Beverage Table
+COPY fnb_sales (
+    order_status, event_type, event_name, season_name, source, order_id,
+    event_date, order_time, item_price, quantity, item_id, item_name,
+    processed_date, item_tax, item_type, vendor_name, vendor_group, venue_name,
+    event_time
 ) 
-FROM '/tmp/data/lafc_sql_test_2022merch(in).csv' 
-DELIMITER ',' 
+FROM '/tmp/data/lafc_fb_data_sample_cleaned.csv'
+DELIMITER ','
 CSV HEADER;

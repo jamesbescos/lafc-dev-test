@@ -109,3 +109,28 @@ CREATE TABLE merchandise (
     promo_used_flag BOOLEAN NOT NULL DEFAULT FALSE,
     promo_code VARCHAR(255)
 );
+
+-- Food and Beverage Table
+-- Includes LAFC's food and beverage sales
+CREATE TABLE fnb_sales (
+    sale_id SERIAL PRIMARY KEY,
+    order_status VARCHAR(255),
+    event_type VARCHAR(255),
+    event_name VARCHAR(255),
+    season_name VARCHAR(255),
+    source VARCHAR(255),
+    order_id INTEGER NOT NULL,
+    event_date DATE,
+    order_time VARCHAR(255),
+    item_price DECIMAL(10,2) CHECK (item_price >= 0),
+    quantity INTEGER CHECK (quantity >= 0),
+    item_id INTEGER NOT NULL,
+    item_name VARCHAR(255),
+    processed_date TIMESTAMP,
+    item_tax DECIMAL(10,2) CHECK (item_tax >= 0),
+    item_type VARCHAR(255),
+    vendor_name VARCHAR(255),
+    vendor_group VARCHAR(255),
+    venue_name VARCHAR(255),
+    event_time TIMESTAMP
+);
