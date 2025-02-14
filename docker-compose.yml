@@ -28,6 +28,7 @@ services:
       POSTGRES_HOST: db
       POSTGRES_PORT: 5432
       JUPYTER_PORT: 8888
+      FLASK_PORT: 4444
     ports:
       - "4444:4444"
     volumes:

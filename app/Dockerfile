@@ -10,7 +10,5 @@ RUN pip install poetry \
 COPY ./src ./src
 COPY ./templates ./templates
 
-EXPOSE 4444
-
 # Start flask app
 CMD ["python", "-m", "src.web_app"]
