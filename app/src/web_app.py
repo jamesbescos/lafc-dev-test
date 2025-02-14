@@ -7,5 +7,13 @@ app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), '.
 def index():
     return render_template('index.html')
 
+@app.route("/part1")
+def serve_tableau():
+    return render_template('part1.html')
+
+@app.route("/part2")
+def redirect_to_jupyter():
+    return redirect(f"http://localhost:{os.getenv('JUPYTER_PORT', '8888')}/lab/tree/work/part2.ipynb", code=302)
+
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=4444)
