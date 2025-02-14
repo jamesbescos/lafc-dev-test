@@ -53,12 +53,12 @@ Thank you for taking the time to review this! Please reach out if you run into a
 
 ## NOTES
 - I combined the two merchandise CSVs into a single table for simplicity.
-- In the query for question 3, I use the event date for a ticket to estimate the purchase date. I could not find a field that indicated when tickets were actually purchased.
-- In the query for question 3, I did not use the 'first_order_date' field of merchandise and instead just used the order date of the merchandise included in the CSVs. I thought that was more in the spirit of the prompt.
-- In the query for question 4, I used 'season_name' and 'minor_category' to identify mls regular season games for 2022, but I am not confident it is an accurate way to do so.
+- In the query for question 3, I use the event date for a ticket to estimate the purchase date.
+- In the query for question 3, I did not use the 'first_order_date' field of merchandise and instead just used the order date of the merchandise included in the CSVs.
+- In the query for question 4, I used 'season_name' and 'minor_category' to identify MLS regular season games for 2022.
 
 ## TODO
-Since the database was not a core part of this assignment, I took shortcuts in designing it along with some of the decisions I made for the frontend. If I had more time, below are somethings I would like to develope further:
+Since the database was not a core part of this assignment, I took shortcuts in designing it along with some of the decisions I made for the frontend. If I had more time, below are somethings I would like to develop further:
 
 - Improve data ingestion process (better cleaning, anomolie detection, ect.)
 - Further normalize database (eg. section_name exists multiple tables, ect.)
