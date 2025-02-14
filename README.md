@@ -7,7 +7,7 @@ Take home test for LAFC analyst position. Instructions in '2025 LAFC Analyst, Bu
 
 You can see the queries directly in plain text 'db/migrations/views.sql' or you can view and run them by running the docker containers with the instructions below.
 
-Thank you for taking the time to review this! Please reach out if you run into any issues or have any feedback.
+Thank you for taking the time to review! Please reach out if you run into any issues or have any feedback.
 
 ## REQUIREMENTS
 - Docker
