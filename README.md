@@ -1,9 +1,9 @@
-# LAFC DEV TEST
+# LAFC Business and Data Strategy Project
 
 ## DESCRIPTION
 Take home test for LAFC analyst position. Instructions in '2025 LAFC Analyst, Business & Data Strategy Project.pdf'.
 
-Please judge part 2 of this project.
+**Please judge part 2 of this project.**
 
 You can see the queries directly in plain text 'db/migrations/views.sql' or you can view and run them by running the docker containers with the instructions below.
 
@@ -38,6 +38,7 @@ Thank you for taking the time to review this! Please reach out if you run into a
     - vw_question_2
     - vw_question_3
     - vw_question_4
+      
     You can see the underlying queries of a view in 'db/migrations/views.sql', or by running the query:
     ```sql
         SELECT definition 
