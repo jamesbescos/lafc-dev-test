@@ -9,6 +9,7 @@ RUN pip install poetry \
     && poetry install --no-interaction --no-ansi
 COPY ./src ./src
 COPY ./templates ./templates
+COPY ./static ./static
 
 # Start flask app
 CMD ["python", "-m", "src.web_app"]
