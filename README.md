@@ -7,29 +7,42 @@ Take home test for LAFC analyst position. Instructions in '2025 LAFC Analyst, Bu
 - Docker
 - Docker Compose
 
+## COMPONENTS
+
+### Containers
+- PostrgreSQL
+    - To host data.
+- Python (Flask with embedded Tableau)
+    - To serve home page and part 1 submission.
+- Jupyter Notebook
+    - To serve and provide interactivity for part 2 submission.
+
 ## INSTRUCTIONS
-1. Start PostgreSQL container and seed from CSVs
+1. Start containers and seed db from CSVs
     ```sh
         docker-compose up --build -d
     ```
-2. Test your connection and that there is data
+2.  (Optional) Test your connection and that there is data.
     ```sh
         docker exec -it postgres psql -U lafc_user -d lafc_dev -c "SELECT COUNT(*) FROM events;"
     ```
     or use your prefered db client (you can connect via 'jdbc:postgresql://localhost:5432/lafc_dev'. Credentials are in 'docker-compose.yml')
-3. Answers to the questions are saved as views in the database named the following:
+3.  (Optional) View answers directly in database.
+
+Answers to the questions are saved as views in the database named the following:
     - vw_question_1
     - vw_question_2
     - vw_question_3
     - vw_question_4
-    
+
     You can see the underlying queries of a view in 'db/migrations/views.sql', or by running the query:
     ```sql
         SELECT definition 
         FROM pg_views 
-        WHERE viewname = 'vw_question_1';
+        WHERE viewname = '<view name>';
     ```
-4. Stop the container
+4. Open broswer to 'https://localhost:4444' to view assignment submissions.
+5. Stop the containers
     ```sh
         docker-compose down
     ```
