@@ -3,12 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LAFC Business and Data Strategy Assignment</title>
+    <title>LAFC Business and Data Strategy Project</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/styles.css') }}">
 </head>
 <body>
-    <h1>LAFC Business and Data Strategy Assignment</h1>
-    <a href="/">Home</a>
-    <a href="/part1">Part 1</a>
-    <a href="/part2">Part 2</a>
+    {% include "header.html" %}
+    <h1>LAFC Business and Data Strategy Project</h1>
+    <hr>
+        <p class="desc imp-desc">Please judge part 2 of this project.</p>
+        <p class="desc">I attempted both parts of the project, and that had a large influence on the infrastructure I used for this project. Ultimately I feel stronger in my skills for part 2 and I hope I was able to display creativity in the queries along with the surrounding choices I made for how to present them. Thank you for taking time to view my work. Please let me know if you have any feedback or notice any issues.</p>
+    <h2>PART 1</h2>
+    <hr>
+    <p class="desc">You can view my submission for part 1 by following the link below to use view an embedded tableau food and beverage report.</p>
+    <div class="bullet-section">
+        <span>Notes:</span>
+        <ul>
+            <li>Dimensions: sale processed relative to event time, quantities per order, item type</li>
+            <li>Additional data that could be interesting: vendor location (eg. by section), inventory, attendance data, demographic data, portable vs stationary vendor data, game score during sale processed time, costs of goods</li>
+        </ul>
+    </div>
+    <a href="/part1" class="button">PART 1</a>
+    <h2>PART 2</h2>
+    <hr>
+    <p class="desc">You can view my submission for part 2 by viewing them in plain text at './db/migrations/views.sql' or by following the link below to use a jupyter notebook to interact with the database.</p>
+    <div class="bullet-section">
+        <span>Notes:</span>
+        <ul>
+            <li>I combined the two merchandise CSVs into a single table ('merchandise') for simplicity.</li>
+            <li>In the query for question 3, I use the event date for a ticket to estimate the purchase date. I could not find a field that indicated when tickets were actually purchased.</li>
+            <li>In the query for question 3, I did not use the 'first_order_date' field of merchandise and instead just used the order date of the merchandise included in the CSVs. I thought that was more in the spirit of the prompt.</li>
+            <li>In the query for question 4, I used 'season_name' and 'minor_category' to identify mls regular season games for 2022, but I am not confident it is an accurate way to do so.</li>
+        </ul>
+    </div>
+    <a href="/part2" class="button">PART 2</a>
 </body>
 </html>

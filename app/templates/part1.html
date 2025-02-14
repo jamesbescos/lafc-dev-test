@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LAFC Part 1</title>
-    <script type='module' src='https://10ay.online.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js'></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/styles.css') }}">
+    <script type="module" src="https://10ay.online.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
 </head>
 <body>
-    <h1>LAFC Business and Data Strategy Assignment</h1>
-    <a href="/">Home</a>
-    <a href="/part1">Part 1</a>
-    <a href="/part2">Part 2</a>
-    <tableau-viz id='tableau-viz' src='https://10ay.online.tableau.com/t/jamesbescos-e603b9efd4/views/lafc_fnb_sales/Sheet1' width='100%' height='720' hide-tabs toolbar='bottom' ></tableau-viz>
+    {% include "header.html" %}
+    <div className="tableau-container" style="margin-top:6em;">
+        <tableau-viz id='tableau-viz' src='https://10ay.online.tableau.com/t/jamesbescos-e603b9efd4/views/lafc_fnb_sales/Sheet1' width='100%' height='720' hide-tabs toolbar='bottom' ></tableau-viz>
+    </div>
 </body>
 </html>
