@@ -3,6 +3,12 @@
 ## DESCRIPTION
 Take home test for LAFC analyst position. Instructions in '2025 LAFC Analyst, Business & Data Strategy Project.pdf'.
 
+Please judge part 2 of this project.
+
+You can see the queries directly in plain text 'db/migrations/views.sql' or you can view and run them by running the docker containers with the instructions below.
+
+Thank you for taking the time to review this! Please reach out if you run into any issues or have any feedback.
+
 ## REQUIREMENTS
 - Docker
 - Docker Compose
@@ -22,26 +28,23 @@ Take home test for LAFC analyst position. Instructions in '2025 LAFC Analyst, Bu
     ```sh
         docker-compose up --build -d
     ```
-2.  (Optional) Test your connection and that there is data.
+2.  (Optional) Test your connection and that seeding was successful.
     ```sh
         docker exec -it postgres psql -U lafc_user -d lafc_dev -c "SELECT COUNT(*) FROM events;"
     ```
     or use your prefered db client (you can connect via 'jdbc:postgresql://localhost:5432/lafc_dev'. Credentials are in 'docker-compose.yml')
-3.  (Optional) View answers directly in database.
-
-Answers to the questions are saved as views in the database named the following:
+3.  (Optional) View answers directly in database. Answers to the questions are saved as views in the database named the following:
     - vw_question_1
     - vw_question_2
     - vw_question_3
     - vw_question_4
-
     You can see the underlying queries of a view in 'db/migrations/views.sql', or by running the query:
     ```sql
         SELECT definition 
         FROM pg_views 
         WHERE viewname = '<view name>';
     ```
-4. Open broswer to 'https://localhost:4444' to view assignment submissions.
+4. Open browser to 'https://localhost:4444' to view assignment submissions.
 5. Stop the containers
     ```sh
         docker-compose down
@@ -54,9 +57,11 @@ Answers to the questions are saved as views in the database named the following:
 - In the query for question 4, I used 'season_name' and 'minor_category' to identify mls regular season games for 2022, but I am not confident it is an accurate way to do so.
 
 ## TODO
-Since the database was not a core part of this assignment, I took some shortcuts in designing it that I would spend more time in designing:
+Since the database was not a core part of this assignment, I took shortcuts in designing it along with some of the decisions I made for the frontend. If I had more time, below are somethings I would like to develope further:
 
-- Improve data ingestion process (better cleaning, anomolie detection, ect) since I needed to make some concessions to what data types were used.
+- Improve data ingestion process (better cleaning, anomolie detection, ect.)
 - Further normalize database (eg. section_name exists multiple tables, ect.)
 - Create useful indexes (at this scale it is not particularly necessary)
 - Spend more time identifying suitable data types and add missing constraints
+- Better formatting of responses in Jupyter Notebook
+- Improved styling, structure and content of home page
