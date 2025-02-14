@@ -3,6 +3,8 @@ services:
     build: ./db
     container_name: postgres
     restart: always
+    networks:
+      - lafc-network
     environment:
       POSTGRES_DB: lafc_dev
       POSTGRES_USER: lafc_user
@@ -11,5 +13,25 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+  flask:
+    build: ./app
+    container_name: flask
+    restart: always
+    networks:
+      - lafc-network
+    depends_on:
+      - db
+    environment:
+      POSTGRES_DB: lafc_dev
+      POSTGRES_USER: lafc_user
+      POSTGRES_PASSWORD: thisis3252ahoo
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+    ports:
+      - "4444:4444"
+    volumes:
+      - ./app:/app 
 volumes:
   postgres_data:
+networks:
+  lafc-network:
