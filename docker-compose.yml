@@ -49,6 +49,9 @@ services:
       POSTGRES_PORT: 5432
     ports:
       - "8888:8888"
+    volumes:
+      - ./jupyter/notebooks:/home/jovyan/work
+      - ./jupyter/jupyter_notebook_config.py:/home/jovyan/.jupyter/jupyter_notebook_config.py
 volumes:
   postgres_data:
 networks:
